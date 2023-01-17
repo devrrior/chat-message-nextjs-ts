@@ -6,6 +6,7 @@ import {HomeFormType} from "@/types/forms/homeForm.type";
 import {useDispatch} from "react-redux";
 import {setUsername} from "@/store/slices/chatSlice";
 import {useRouter} from "next/router";
+import {AppRoute} from "@/constants/appRoute";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function Home() {
 
     const handleSubmit = async (values: HomeFormType) => {
         dispatch(setUsername({username: values.username}));
-        await router.push('/chat?roomId=general');
+        await router.push(`${AppRoute.chat}?roomId=general`);
     }
 
     const formik = useFormik({

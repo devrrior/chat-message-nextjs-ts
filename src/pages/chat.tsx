@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import Header from "@/pages/components/chat/header";
 import Content from "@/pages/components/chat/content";
@@ -6,28 +6,21 @@ import BottomBar from "@/pages/components/chat/bottomBar";
 import {useRouter} from "next/router";
 import {useSocket} from "@/hooks/useSocket";
 import {insertInitialMessages, insertOne, setRoomId} from "@/store/slices/chatSlice";
-import {Socket} from "socket.io-client";
 import {SocketEventEnum} from "@/constants/socketEvent.enum";
+import {listMessagesByRoomId} from "@/services/message.service";
+import {joinRoom, leaveRoom} from "@/services/socket.service";
 
 export default function Chat() {
     const dispatch = useDispatch();
     const router = useRouter();
     const {socket} = useSocket();
 
-    const joinRoom = useCallback((socket: Socket, roomId: string) => {
-        const payload = {roomId}
-        socket.emit(SocketEventEnum.joinRoom, payload);
-    }, [])
-    const leaveRoom = useCallback((socket: Socket, roomId: string) => {
-        const payload = {roomId}
-        socket.emit(SocketEventEnum.leaveRoom, payload);
-    }, [])
-
     useEffect(() => {
         if (!router.isReady || !socket) return;
         const {roomId} = router.query;
         fetchMessagesByRoomId(roomId as string);
         joinRoom(socket, roomId as string);
+
         dispatch(setRoomId({roomId: roomId as string}));
 
         socket.on(SocketEventEnum.getMessage, (message) => {
@@ -40,7 +33,7 @@ export default function Chat() {
     }, [dispatch, joinRoom, leaveRoom, router.isReady, router.query, socket])
 
     const fetchMessagesByRoomId = async (roomId: string) => {
-        const response = await fetch(`http://127.0.0.1:3001/chat/messages?roomId=${roomId}`);
+        const response = await listMessagesByRoomId(roomId);
         const messages = await response.json();
 
         dispatch(insertInitialMessages({messages}));
