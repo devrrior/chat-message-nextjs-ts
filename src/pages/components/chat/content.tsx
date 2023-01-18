@@ -19,7 +19,7 @@ export default function Content() {
     return (
         <>
             {
-                messages.length > 0 ?
+                messages ?
                     <Box display="flex" flexDirection="column-reverse" padding="10px 24px 10px 24px"
                          style={{overflowY: "scroll"}}>
                         {renderMessages(messages)}

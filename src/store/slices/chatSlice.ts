@@ -9,13 +9,13 @@ import {
 } from "@/types/slices/chatSlice.type";
 
 export interface ChatState {
-    messages: MessageType[];
+    messages: MessageType[] | null;
     username: string | null;
     roomId: string | null
 }
 
 const initialState: ChatState = {
-    messages: [],
+    messages: null,
     username: null,
     roomId: null,
 }
@@ -28,7 +28,9 @@ export const chatSlice = createSlice({
             state.messages = action.payload.messages;
         },
         insertOne: (state, action: PayloadAction<InsertOnePayloadType>) => {
-            state.messages = [action.payload.message, ...state.messages];
+            if (state.messages) {
+                state.messages = [action.payload.message, ...state.messages];
+            }
         },
         setUsername: (state, action: PayloadAction<SetUsernameType>) => {
             state.username = action.payload.username;
