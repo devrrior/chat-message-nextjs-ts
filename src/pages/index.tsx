@@ -33,7 +33,7 @@ export default function Home() {
 
     return (
         <Grid container width='100%' height='100vh'>
-            <Grid container xs={5} justifyContent='center' item>
+            <Grid container xs={12} md={5} justifyContent='center' item>
                 <Box display='flex' flexDirection='column' gap={5} sx={{marginTop: '45%'}}>
                     <Typography variant='h1' fontSize='xx-large'>Welcome to chat message</Typography>
                     <form onSubmit={formik.handleSubmit}>
@@ -54,7 +54,7 @@ export default function Home() {
                     </form>
                 </Box>
             </Grid>
-            <Grid container xs={7} justifyContent='center' alignItems='center' item>
+            <Grid container xs={12} md={7} justifyContent='center' alignItems='center' item>
                 <Image src='./chat-message-app.svg' alt='chat-message-app' width={600} height={400} draggable='false'/>
             </Grid>
         </Grid>
