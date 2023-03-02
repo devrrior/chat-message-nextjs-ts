@@ -68,7 +68,6 @@ export default function Home() {
                     break;
                 case NotificationMessageEnum.usernameIsAlreadyTaken:
                     showAlert('Username is already taken');
-                    console.log(msgAlert);
                     break;
             }
         });

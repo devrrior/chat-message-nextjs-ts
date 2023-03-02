@@ -1,6 +1,9 @@
+import {MessageTypeEnum} from "@/constants/messageType.enum";
+
 export type MessagePropsType = {
-    message: string;
+    data: any;
     author: string;
     createdAt: string;
     isOwn: boolean;
+    type: MessageTypeEnum;
 }

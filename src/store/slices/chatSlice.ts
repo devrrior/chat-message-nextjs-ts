@@ -1,12 +1,7 @@
 import type {PayloadAction} from '@reduxjs/toolkit'
 import {createSlice} from '@reduxjs/toolkit'
+import {InsertOnePayloadType, SetRoomIdType, SetUsernameType} from "@/types/slices/chatSlice.type";
 import {MessageType} from "@/types/models/message.type";
-import {
-    InsertInitialMessages,
-    InsertOnePayloadType,
-    SetRoomIdType,
-    SetUsernameType
-} from "@/types/slices/chatSlice.type";
 
 export interface ChatState {
     messages: MessageType[] | null;
@@ -24,13 +19,15 @@ export const chatSlice = createSlice({
     name: 'chat',
     initialState,
     reducers: {
-        insertInitialMessages: (state, action: PayloadAction<InsertInitialMessages>) => {
-            state.messages = action.payload.messages;
-        },
         insertOne: (state, action: PayloadAction<InsertOnePayloadType>) => {
             if (state.messages) {
                 state.messages = [action.payload.message, ...state.messages];
+            } else {
+                state.messages = [action.payload.message];
             }
+        },
+        resetMessages: (state) => {
+            state.messages = null;
         },
         setUsername: (state, action: PayloadAction<SetUsernameType>) => {
             state.username = action.payload.username;
@@ -43,6 +40,6 @@ export const chatSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {insertInitialMessages, insertOne, setUsername, setRoomId} = chatSlice.actions
+export const {insertOne, setUsername, setRoomId, resetMessages} = chatSlice.actions
 
 export default chatSlice.reducer

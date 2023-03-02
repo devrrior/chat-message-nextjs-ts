@@ -1,9 +1,5 @@
 import {MessageType} from "@/types/models/message.type";
 
-export type InsertInitialMessages = {
-    messages: MessageType[];
-}
-
 export type InsertOnePayloadType = {
     message: MessageType;
 }

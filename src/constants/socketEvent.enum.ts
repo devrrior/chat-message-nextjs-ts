@@ -6,4 +6,6 @@ export enum SocketEventEnum {
     joinUser = 'event_join_user',
     leaveUser = 'event_leave_user',
     notifications = 'event_notifications',
+    sendFile = 'event_send_file',
+    getFile = 'event_get_file',
 }

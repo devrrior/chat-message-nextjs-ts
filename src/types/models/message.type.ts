@@ -1,5 +1,8 @@
+import {MessageTypeEnum} from "@/constants/messageType.enum";
+
 export type MessageType = {
-    message: string;
+    data: any;
+    type: MessageTypeEnum;
     author: string;
     createdAt: Date;
 }

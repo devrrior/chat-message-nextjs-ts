@@ -20,3 +20,7 @@ export const leaveUser = (socket: Socket, username: string): void => {
     const payload = {username};
     socket.emit(SocketEventEnum.leaveUser, payload);
 }
+
+export const sendFile = (socket: Socket, payload: any): void => {
+    socket.emit(SocketEventEnum.sendFile, payload);
+}
